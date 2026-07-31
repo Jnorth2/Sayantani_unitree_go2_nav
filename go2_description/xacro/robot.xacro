@@ -68,7 +68,7 @@
     <joint name="lidar_joint" type="fixed">
         <parent link="trunk"/>
         <child link="utlidar_lidar"/>
-        <origin rpy="0 -0.2 0" xyz="0.29515 -0.00003 -0.06597"/>
+        <origin rpy="0 -2.9415926 3.1415926" xyz="0.29515 -0.00003 -0.06597"/>
     </joint>
 
     <link name="utlidar_lidar">
@@ -119,6 +119,14 @@
 
     <link name="front_camera">
     </link>
+
+    <!-- Chassis Depth Camera -->
+    <xacro:include filename="$(find realsense2_description)/urdf/_d435i.urdf.xacro"/>
+
+    <xacro:sensor_d435i parent="trunk" name="d435i" use_nominal_extrinsics="true">
+        <origin xyz="0.32715 0.0 0.07" rpy="0.0 0.174533 0"/>      
+        <!-- KRJ TODO: CHECK IF THIS IS CORRECT TRANSFORM. IS FROM CAD, SHOULD BE GOOD -->
+    </xacro:sensor_d435i>
 
     <!--
     <joint name="load_joint" type="fixed">
