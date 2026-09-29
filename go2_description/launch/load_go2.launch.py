@@ -9,7 +9,7 @@ from launch.actions import DeclareLaunchArgument, Shutdown, SetLaunchConfigurati
      IncludeLaunchDescription
 from launch_ros.parameter_descriptions import ParameterValue
 from launch.substitutions import Command, LaunchConfiguration, PathJoinSubstitution, \
-     TextSubstitution
+     PythonExpression, TextSubstitution
 from launch.conditions import LaunchConfigurationEquals, IfCondition
 from launch_ros.substitutions import FindPackageShare
 from launch.launch_description_sources import PythonLaunchDescriptionSource
@@ -66,7 +66,14 @@ def generate_launch_description():
                               ]),
                               value_type=str
                          ),
-                    'frame_prefix': [LaunchConfiguration('namespace'), '/']
+                    # namespace='' must yield frame_prefix='', not '/' — a leading
+                    # slash on every published frame_id orphans the whole static tree
+                    # (trunk, utlidar_lidar, imu_link, ...) from the unprefixed names
+                    # used by the EKF, RTAB-Map, and the sensor driver topics.
+                    'frame_prefix': PythonExpression([
+                        "'", LaunchConfiguration('namespace'), "/' if '",
+                        LaunchConfiguration('namespace'), "' else ''",
+                    ])
                }],
                namespace=LaunchConfiguration('namespace')
           ),
