@@ -68,7 +68,10 @@
     <joint name="lidar_joint" type="fixed">
         <parent link="trunk"/>
         <child link="utlidar_lidar"/>
-        <origin rpy="0 -2.9415926 3.1415926" xyz="0.29515 -0.00003 -0.06597"/>
+        <!-- Rotated 180 deg about the lidar's own z: its x axis points backward
+             (like Unitree's rpy="0 2.8782 0"). The previous "0 -2.9415926 3.1415926"
+             mirrored walls left/right and tilted the floor ~23 deg. -->
+        <origin rpy="0 2.9415926 0" xyz="0.29515 -0.00003 -0.06597"/>
     </joint>
 
     <link name="utlidar_lidar">
