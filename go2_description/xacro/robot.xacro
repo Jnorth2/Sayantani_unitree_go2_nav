@@ -68,10 +68,7 @@
     <joint name="lidar_joint" type="fixed">
         <parent link="trunk"/>
         <child link="utlidar_lidar"/>
-        <!-- Calibrated against the D435 floor plane and depth (2026-10-20): mounted
-             upside down, pitched ~11.3 deg nose-down, ~2.5 deg roll. The previous
-             rpy="0 -2.9415926 3.1415926" had the pitch sign flipped (11.5 deg up). -->
-        <origin rpy="-3.0941 0.1969 0.0201" xyz="0.29515 -0.00003 -0.06597"/>
+        <origin rpy="0 -2.9415926 3.1415926" xyz="0.29515 -0.00003 -0.06597"/>
     </joint>
 
     <link name="utlidar_lidar">
