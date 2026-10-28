@@ -87,6 +87,17 @@
     <link name="base_footprint">
     </link>
 
+    <!-- RTK GPS antenna (u-blox fixes are stamped frame_id "gps"): rigid on the
+         body, at the back edge of the trunk box, 2.5 in (0.0635 m) above its top -->
+    <joint name="gps_joint" type="fixed">
+        <parent link="trunk"/>
+        <child link="gps"/>
+        <origin rpy="0 0 0" xyz="${-trunk_length/2} 0 ${trunk_height/2 + 0.0635}"/>
+    </joint>
+
+    <link name="gps">
+    </link>
+
     <joint name="imu_joint" type="fixed">
         <parent link="trunk"/>
         <child link="imu_link"/>
